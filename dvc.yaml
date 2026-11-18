@@ -1,0 +1,24 @@
+stages:
+  clean:
+    cmd: uv run python scripts/clean.py data/raw/events.csv data/clean/events.csv
+    deps:
+      - scripts/clean.py
+      - data/raw/events.csv
+    outs:
+      - data/clean/events.csv
+
+  transform:
+    cmd: uv run python scripts/transform.py data/clean/events.csv data/transformed/events.csv
+    deps:
+      - scripts/transform.py
+      - data/clean/events.csv
+    outs:
+      - data/transformed/events.csv
+
+  features:
+    cmd: uv run python scripts/features.py data/transformed/events.csv data/features/events.csv
+    deps:
+      - scripts/features.py
+      - data/transformed/events.csv
+    outs:
+      - data/features/events.csv
